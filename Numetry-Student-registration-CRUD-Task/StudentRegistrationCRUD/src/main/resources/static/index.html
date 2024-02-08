@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Student Registration</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Student Registration</h2>
+        <form id="studentForm">
+            <label>Name: <input type="text" id="name" required></label>
+            <label>Age: <input type="number" id="age" required></label>
+            <label>Course: <input type="text" id="course" required></label>
+            <button type="button" onclick="addStudent()">Add Student</button>
+        </form>
+
+        <h2>Student List</h2>
+        <table id="studentTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Course</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Student data will be displayed here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function addStudent() {
+            var name = document.getElementById("name").value;
+            var age = document.getElementById("age").value;
+            var course = document.getElementById("course").value;
+
+            var newRow = "<tr><td>" + name + "</td><td>" + age + "</td><td>" + course + "</td><td><a href='#'>Edit</a> <a href='#'>Delete</a></td></tr>";
+
+            document.getElementById("studentTable").getElementsByTagName('tbody')[0].insertAdjacentHTML('beforeend', newRow);
+
+            // Clear form fields
+            document.getElementById("name").value = "";
+            document.getElementById("age").value = "";
+            document.getElementById("course").value = "";
+        }
+    </script>
+</body>
+</html>
