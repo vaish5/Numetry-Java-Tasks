@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Transportation Form</title>
+    <style>
+        form {
+          border: 2px solid ;
+          padding: 20px; 
+          width: 600px; 
+          margin: 0 auto; 
+        }
+      </style>
+</head>
+<body>
+    <h2 style="text-align: center;">School Transportation</h2>
+    <form id="myForm">
+        <label for="studentName">Student name</label><br>
+        <input type="text" id="studentName" name="studentName"><br><br>
+        <label for="schoolName">School name</label><br>
+        <input type="text" id="schoolName" name="schoolName"> &nbsp;&nbsp;
+        <label for="grade">Grade</label>
+        <input type="text" id="grade" name="grade"> &nbsp;&nbsp;
+        <label for="dateToBegin">Date to begin</label>
+        <input type="date" id="dateToBegin" name="dateToBegin"><br><br>
+        <label for="parentName">Parent/guardian name</label><br>
+        <input type="text" id="parentName" name="parentName"><br><br>
+        <label for="address">Address</label><br>
+        <input type="text" id="address" name="address"><br><br>
+        <label for="address2">Address 2</label><br>
+        <input type="text" id="address2" name="address2"><br><br>
+        <label for="city">City</label>
+        <input type="text" id="city" name="city"> &nbsp;&nbsp;
+        <label for="state">State</label>
+        <input type="text" id="state" name="state"><br><br>
+        <label for="zipCode">Zip code</label>
+        <input type="text" id="zipCode" name="zipCode"> &nbsp;&nbsp;
+        <label for="phoneNumber">Phone number</label>
+        <input type="text" id="phoneNumber" name="phoneNumber"><br><br>
+        <label for="emailAddress">Email address</label><br>
+        <input type="email" id="emailAddress" name="emailAddress"><br><br>
+        <div style="text-align: center;">
+        <input type="submit" value="Submit">
+        </div>
+    </form>
+
+    <script>
+    document.getElementById('myForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // prevent default form submission
+
+        // Serialize form data to JSON
+        var formData = {};
+        var formElements = this.elements;
+        for (var i = 0; i < formElements.length; i++) {
+            var element = formElements[i];
+            if (element.tagName === 'INPUT') {
+                formData[element.name] = element.value;
+            }
+        }
+
+        fetch('/submitForm', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.text())
+        .then(data => {
+            alert(data); // show response from backend
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+    </script>
+
+</body>
+</html>
